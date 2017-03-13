@@ -1,0 +1,41 @@
+Drinks
+---
+milk
+orange juice
+coffee
+###
+Breakfast
+---
+eggs
+bacon
+pancakes
+waffles
+###
+Lunch
+---
+hamburgers
+pizza
+###
+Dinner
+---
+roast beef
+enchiladas
+carne asada
+corn
+potatos
+==========
+
+CHALLENGE: Write a program that converts the above shopping list from this file
+into a Python dictionary with the section headings Drinks, Breakfast, Lunch,
+and Dinner as keys, and a list of each of the items under each heading as
+values.
+
+The function load_shopping_list should take a file name as an argument and
+return the portion of the file that proceeds a '==========' delimeter. 
+We'll start with baby steps - we can call the function and it returns a
+string:
+
+  >>> from shoppinglist import *
+  >>> shoplist = load_shopping_list('shoppinglist.txt')
+  >>> type(shoplist)
+  <class 'str'>

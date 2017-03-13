@@ -1,3 +1,5 @@
+from fractions import Fraction
+
 def print_matrix(m):
     for row in m:
         print('|{0:6s}{1:6s}{2:6s}|{3:6s}|'.format(*[str(val) for val in row]))
@@ -15,9 +17,8 @@ def add_row(m, k, ri, rj):
 
 
 def reduced_row_echelon(m):
-    """Tranform augmented matrix m to reduced row echelon form."""
+    """Transform augmented matrix m to reduced row echelon form."""
 
-    from fractions import Fraction 
     # Set first value in row 1 to 1
     mul_row(m, Fraction(1, m[0][0]), 1)
 
