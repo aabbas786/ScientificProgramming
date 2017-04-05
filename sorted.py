@@ -1,0 +1,5 @@
+s = open(input('File name: '), 'r')
+s = s.read()
+s = s.split()
+s = sorted(s)
+print(s)

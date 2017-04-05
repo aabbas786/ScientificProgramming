@@ -10,7 +10,7 @@ def bella(filename):
             adell[i][j] =  adell[i][j].split(";")
             for k in range(len(adell[i][j])):
                 adell[i][j][k] = int(adell[i][j][k])
-    print(adell)
+    return adell
 
 
 bella("matrices.dat")
