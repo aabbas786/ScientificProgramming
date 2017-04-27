@@ -1,7 +1,7 @@
 from gjtools import print_matrix, mul_row, add_row
 from fractions import Fraction
 
-m = [[1, -2, 3, 9], [-1, 3, 0, -4], [2, -5, 5, 17]]
+#messed up this matrix it wasnt this one m = [[9, -3, 1, -65], [16, 4, 1, -16], [100, -10, 1, -408]]
 print_matrix(m)
 mul_row(m, Fraction(1, 2), 3)
 print_matrix(m)
