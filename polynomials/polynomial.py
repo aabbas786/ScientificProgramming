@@ -21,6 +21,7 @@ def get_opp(p, i):
     else:
         return ' - '
 
+
 def get_xterm(p, i):
     """
       >>> get_xterm((8, 6, 7, 9), 0)
@@ -71,6 +72,17 @@ def poly_to_str(p):
 
     return polystr
 
+
+def add_polys(p1, p2):
+    """
+      >>> add_polys((3, 1, 2), (1, 2, 3))
+      (4, 3, 5)
+    """
+    p3 = []
+    for i in range(len(p1)):
+        p3.append(p1[i] + p2[i])
+    
+    return p3
 
 if __name__ == '__main__':
     import doctest
