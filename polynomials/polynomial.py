@@ -112,11 +112,27 @@ def mul_polys(p1, p2):
     """
       >>> mul_polys((4, -5), (2, 3, -6))
       (8, 2, -39, 30)
+      >>> mul_polys((3, 2), (5, 6))
+      (15, 28, 12)
+      >>> mul_polys((4, 0, 5, 3), (7, 4, 0, 5))
+      (28, 16, 35, 61, 12, 25, 15)
+      >>> mul_polys((0, 4), (4, 0))
+      (16, 0)
+      >>> mul_polys((0, 0, 0, 0, 0, 4), (4, 0, 0, 0, 0, 0))
+      (16, 0, 0, 0, 0, 0)
+      >>> mul_polys((-4, 3), (7, 5))
+      (-28, 1, 15)
     """
-    p3 = []
+    p3 = ()
+    not0i = 0
     for i in range(len(p1)):
-        term_x_poly(p1[i], len(p1) - 1, p2)
-    return tuple(p3)
+        bigpoly = term_x_poly(p1[i], len(p1) - 1 - i, p2)
+        p3 = add_polys(bigpoly, p3)
+
+    while p3[not0i] == 0:
+        not0i += 1
+
+    return p3[not0i:]
 
 
 if __name__ == '__main__':
