@@ -1,3 +1,16 @@
+class Polynomial:
+    """
+      >>> p = Polynomial()
+      >>> type(p)
+      <class '...Polynomial'>
+      >>> p = Polynomial((3, 4, 1))
+      >>> p.coeffs
+      (3, 4, 1)
+    """
+    def __init__(self, coeffs=(0,)):
+        self.coeffs = coeffs
+
+'''
 def get_opp(p, i):
     """
       >>> get_opp((7, -3, 5, -6), 1)
@@ -133,8 +146,9 @@ def mul_polys(p1, p2):
         not0i += 1
 
     return p3[not0i:]
+'''
 
 
 if __name__ == '__main__':
     import doctest
-    doctest.testmod()
+    doctest.testmod(optionflags=doctest.ELLIPSIS)
