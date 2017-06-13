@@ -102,73 +102,83 @@ class Polynomial:
         return polystr
 
 
-    def add_polys(self, other):
+    def __add__(self, other):
         """
           >>> p1 = Polynomial((3, 1, 2))
           >>> p2 = Polynomial((1, 2, 3))
-          >>> p1.add_polys(p2)
+          >>> p1 + p2
           4x^2 + 3x + 5
           >>> p3 = Polynomial((4, 3, 5, 9))
           >>> p4 = Polynomial((2, -3, 2, -9))
-          >>> p3.add_polys(p4).coeffs
+          >>> (p3 + p4).coeffs
           (6, 0, 7, 0)
           >>> p5 = Polynomial((5, 3, 1, 2))
           >>> p6 = Polynomial((1, 2, 3))
-          >>> p5.add_polys(p6).coeffs
+          >>> (p5 + p6).coeffs
           (5, 4, 3, 5)
         """
         if len(self.coeffs) < len(other.coeffs):
-            self.coeffs = ((0, ) * (len(other.coeffs) - len(self.coeffs))) +
-                          self.coeffs
+            coeffs1 = ((0, ) * (len(other.coeffs) - len(self.coeffs))) + \
+                    self.coeffs
+            coeffs2 = other.coeffs
         elif len(other.coeffs) < len(self.coeffs):
-            p2 = ((0, ) * (len(p1) - len(p2))) + p2
-        p3 = []
-        for i in range(len(p1)):
-            p3.append(p1[i] + p2[i])
+            coeffs2 = ((0, ) * (len(self.coeffs) - len(other.coeffs))) + \
+                    other.coeffs
+            coeffs1 = self.coeffs
+        else:
+            coeffs1 = self.coeffs
+            coeffs2 = other.coeffs
+        sumcoeffs = []
+        for i in range(len(coeffs1)):
+            sumcoeffs.append(coeffs1[i] + coeffs2[i])
         
-        return tuple(p3)
-
-'''
-def term_x_poly(coeff, exp, p):
-    """
-      >>> term_x_poly(4, 2, (3, 0, 2, 0, 0, 0))
-      (12, 0, 8, 0, 0, 0, 0, 0)
-    """
-    prod = []
-
-    for c in p:
-        prod.append(coeff * c)
-
-    return tuple(prod) + (0, ) * exp
+        return Polynomial(tuple(sumcoeffs))
 
 
-def mul_polys(p1, p2):
-    """
-      >>> mul_polys((4, -5), (2, 3, -6))
-      (8, 2, -39, 30)
-      >>> mul_polys((3, 2), (5, 6))
-      (15, 28, 12)
-      >>> mul_polys((4, 0, 5, 3), (7, 4, 0, 5))
-      (28, 16, 35, 61, 12, 25, 15)
-      >>> mul_polys((0, 4), (4, 0))
-      (16, 0)
-      >>> mul_polys((0, 0, 0, 0, 0, 4), (4, 0, 0, 0, 0, 0))
-      (16, 0, 0, 0, 0, 0)
-      >>> mul_polys((-4, 3), (7, 5))
-      (-28, 1, 15)
-    """
-    p3 = ()
-    not0i = 0
-    for i in range(len(p1)):
-        bigpoly = term_x_poly(p1[i], len(p1) - 1 - i, p2)
-        p3 = add_polys(bigpoly, p3)
+    def mult_by_term(self, coeff, exp):
+        """
+          >>> p = Polynomial((1, 2, 3))
+          >>> p.mult_by_term(4, 2).coeffs
+          (4, 8, 12, 0, 0)
+        """
+        prod = []
 
-    while p3[not0i] == 0:
-        not0i += 1
+        for c in self.coeffs:
+            prod.append(coeff * c)
 
-    return p3[not0i:]
-'''
+        prod += [0] * exp
 
+        return Polynomial(tuple(prod))
+
+    def mul_polys(self, other):
+        """
+          >>> p1 = Polynomial((4, -5))
+          >>> p2 = Polynomial((2, 3, -6))
+          >>> mul_polys(p1, p2)
+          (8, 2, -39, 30)
+        """
+        """
+          >>> mul_polys((3, 2), (5, 6))
+          (15, 28, 12)
+          >>> mul_polys((4, 0, 5, 3), (7, 4, 0, 5))
+          (28, 16, 35, 61, 12, 25, 15)
+          >>> mul_polys((0, 4), (4, 0))
+          (16, 0)
+          >>> mul_polys((0, 0, 0, 0, 0, 4), (4, 0, 0, 0, 0, 0))
+          (16, 0, 0, 0, 0, 0)
+          >>> mul_polys((-4, 3), (7, 5))
+          (-28, 1, 15)
+        """
+        p3 = ()
+        not0i = 0
+        for i in range(len(p1)):
+            bigpoly = term_x_poly(p1[i], len(p1) - 1 - i, p2)
+            p3 = add_polys(bigpoly, p3)
+
+        while p3[not0i] == 0:
+            not0i += 1
+
+        return p3[not0i:]
 
 if __name__ == '__main__':
     import doctest
